@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Solid Permissions Notifications Specification</title>
+    <title>Solid Permissions Notifications</title>
     <script
       src="https://www.w3.org/Tools/respec/respec-w3c"
       class="remove"
@@ -17,7 +17,7 @@
           { name: "Elias Crum", w3cid: "" },
           { name: "Ruben Taelman", w3cid: "84199" },
         ],
-        shortName: "solid-permissions-notifications-specification",
+        shortName: "solid-permissions-notifications",
         xref: "web-platform",
         canonicalURI: "_ORCHESTRATOR_CURRENT_BUILD_FULL_LINK_",
         previousURI: "_ORCHESTRATOR_PREVIOUS_BUILD_FULL_LINK_",
@@ -66,45 +66,45 @@
     <section class="informative">
       <h2>Introduction</h2>
       <p>
-        This document discusses the canonical view materialization of SPARQL queries and results. 
+        This document discusses the representation of permissions notifications within the Solid ecosystem. 
         This document is primarily intended for the following audiences:
         <ul>
-          <li>Developers of SPARQL clients and tools that wish to leverage standardized materialized queries and results.</li>
-          <li>Developers of SPARQL endpoints and services that wish to implement a standardized caching mechanism.</li>
-          <li>Researchers and practitioners interested in improving the performance, availability, and reproducibility of SPARQL queries.</li>
+          <li>Developers of Solid applications that wish to leverage standardized permissions notifications.</li>
+          <li>Developers of Solid servers and services that wish to implement a standardized permissions notification mechanism.</li>
+          <li>Researchers and practitioners interested in improving the performance, availability, and reproducibility of permissions notifications within the Solid ecosystem.</li>
         </ul>
       </p>
       <p>
         The goals of this specification are to:
         <ul>
-          <li>Define a predictable container layout and naming scheme.</li>
-          <li>Specify file formats and media types for query sources and results.</li>
-          <li>Define the structure of <code>queries.ttl</code> — an RDF index that inventories the views in a container and
-          captures provenance.</li>
-          <li>Clarify client and server expectations for creating, updating, and retrieving members.</li>
+          <li>Define a predictable permissions notification structure.</li>
+          <li>Specify file formats and media types for storing and logging permissions notifications.</li>
+          <li>Define the structure of two files <code>sharedWithMe.ttl</code> and <code>sharedWithOthers.ttl</code> 
+            contained within the Solid <code>inbox</code> container — 
+            logs that inventory the permissions received from others and granted to others, respectively.</li>
+          <li>Clarify client and server expectations for creating, updating, and retrieving these permissions notifications.</li>
         </ul>
       </p>
 
       <p>
-        To understand the basics in this note ... (knowledge requirements)
-        
-        The <em>SPARQL Query Cache</em> (SQC) is a conventional layout for
-        representing cached SPARQL queries and their results as HTTP resources
-        inside an <code>ldp:Container</code>. Each cached query is addressed by
-        a stable, opaque identifier derived from a cache key function over the
-        query text, dataset/endpoint selection, and selected request headers.
-        The cache also stores a canonical SPARQL algebra form and a serialized
-        result set for deterministic reuse.
+        To understand the basics in this note ... (briefly discuss the Solid protocol + the spec requirement of an "Inbox")
+        The Solid protocol is a set of conventions for building decentralized web applications that respect user privacy and data ownership. 
+        One key requirement of the Solid specification is the presence of an "inbox" (insert source) — 
+        a designated location for receiving notifications and updates related to shared resources.
+
+        <em>Solid Permissions Notifications</em> (SPN) are guidelines and a conventional layout for
+        representing permission grants within the Solid <code>inbox</code> which is a <code>ldp:Container</code>. 
+        Each permission change is addressed by ...
       </p>
     </section>
 
     <section id="terminology">
       <h2>Terminology</h2>
-      <p>Key terms are used as defined in the following specifications: Linked Data Platform (LDP), SPARQL 1.1 Query, SPARQL Results JSON and XML.</p>
+      <p>Key terms are used as defined in the following specifications: Linked Data Platform (LDP), Solid Specification, ...</p>
       <dl>
-        <dt>QVMC</dt>
-          <dd>SPARQL Query View Materialization Container (this spec).</dd>
-        <dt>Index</dt>
+        <dt>SPN</dt>
+          <dd>Solid Permissions Notifications (this spec).</dd>
+        <dt>...</dt>
           <dd>The RDF document <code class="fname">queries.ttl</code> at the root of a QVMC.</dd>
       </dl>
       <p class="note-hint">RFC 2119 keywords (MUST, SHOULD, MAY) indicate conformance requirements.</p>
@@ -112,18 +112,12 @@
 
     <section id="conformance">
       <p>
-        The following prefixes are used throughout the document.
+        The following prefixes are used throughout the document. (update these)
       </p>
       <pre class="query nohighlight">
         PREFIX rdfs: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
         PREFIX prov: &lt;http://www.w3.org/ns/prov#&gt; .
-        PREFIX dc: &lt;http://purl.org/dc/terms/&gt; .
-        PREFIX sh: &lt;http://www.w3.org/ns/shacl#&gt; .
-        PREFIX tq: &lt;http://www.w3.org/2001/sw/DataAccess/tests/test-query#&gt; .
-        PREFIX tm: &lt;http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#&gt; .
-        PREFIX sd: &lt;http://www.w3.org/ns/sparql-service-description#&gt; .
-        PREFIX se: &lt;https://purl.expasy.org/sparql-examples/ontology#&gt; .
-        PREFIX qvmc: &lt;https://vocab.example/qvmc#&gt; .
+      
       </pre>
   </section>
 
